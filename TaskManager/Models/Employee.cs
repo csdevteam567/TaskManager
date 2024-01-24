@@ -14,6 +14,6 @@ namespace TaskManager.Models
         [Required]
         public string? Email { get; set; }
 
-        public ICollection<AssignedTask>? assignedTasks { get; set; } = null;
+        public ICollection<Task>? Tasks { get; set; } = null;
     }
 }

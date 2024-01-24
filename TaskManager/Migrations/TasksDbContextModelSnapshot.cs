@@ -22,29 +22,6 @@ namespace TaskManager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TaskManager.Models.AssignedTask", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("AssignedTasks");
-                });
-
             modelBuilder.Entity("TaskManager.Models.Employee", b =>
                 {
                     b.Property<int>("id")
@@ -86,42 +63,34 @@ namespace TaskManager.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("TaskManager.Models.AssignedTask", b =>
-                {
-                    b.HasOne("TaskManager.Models.Employee", "employee")
-                        .WithMany("assignedTasks")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TaskManager.Models.Task", "task")
-                        .WithMany("assignedTasks")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("employee");
-
-                    b.Navigation("task");
-                });
-
-            modelBuilder.Entity("TaskManager.Models.Employee", b =>
-                {
-                    b.Navigation("assignedTasks");
                 });
 
             modelBuilder.Entity("TaskManager.Models.Task", b =>
                 {
-                    b.Navigation("assignedTasks");
+                    b.HasOne("TaskManager.Models.Employee", "employee")
+                        .WithMany("Tasks")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("employee");
+                });
+
+            modelBuilder.Entity("TaskManager.Models.Employee", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

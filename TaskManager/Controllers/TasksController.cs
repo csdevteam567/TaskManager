@@ -21,7 +21,8 @@ namespace TaskManager.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tasks.ToListAsync());
+            var tasksDbContext = _context.Tasks.Include(t => t.Employee);
+            return View(await tasksDbContext.ToListAsync());
         }
 
         // GET: Tasks/Details/5
@@ -33,6 +34,7 @@ namespace TaskManager.Controllers
             }
 
             var task = await _context.Tasks
+                .Include(t => t.Employee)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (task == null)
             {
@@ -45,6 +47,7 @@ namespace TaskManager.Controllers
         // GET: Tasks/Create
         public IActionResult Create()
         {
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email");
             return View();
         }
 
@@ -53,7 +56,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name,Status,Created,Deadline,Description")] TaskManager.Models.Task task)
+        public async Task<IActionResult> Create([Bind("id,Name,CompletionStatus,Created,Deadline,Description,EmployeeId")] TaskManager.Models.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace TaskManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", task.EmployeeId);
             return View(task);
         }
 
@@ -77,6 +81,7 @@ namespace TaskManager.Controllers
             {
                 return NotFound();
             }
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", task.EmployeeId);
             return View(task);
         }
 
@@ -85,7 +90,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name,Status,Created,Deadline,Description")] TaskManager.Models.Task task)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Name,CompletionStatus,Created,Deadline,Description,EmployeeId")] TaskManager.Models.Task task)
         {
             if (id != task.id)
             {
@@ -112,6 +117,7 @@ namespace TaskManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", task.EmployeeId);
             return View(task);
         }
 
@@ -124,6 +130,7 @@ namespace TaskManager.Controllers
             }
 
             var task = await _context.Tasks
+                .Include(t => t.Employee)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (task == null)
             {

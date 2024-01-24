@@ -19,7 +19,9 @@ namespace TaskManager.Models
 
         public string? Description { get; set; } = null;
 
-        public ICollection<AssignedTask>? assignedTasks { get; set; } = null;
+        public int EmployeeId { get; set; }
+
+        public Employee? Employee { get; set; } = null;
 
     }
 }

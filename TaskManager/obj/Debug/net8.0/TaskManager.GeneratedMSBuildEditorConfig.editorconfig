@@ -26,26 +26,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Repositories\TaskManager\TaskManager
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Repositories/TaskManager/TaskManager/Views/AssignedTasks/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaWduZWRUYXNrc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Repositories/TaskManager/TaskManager/Views/AssignedTasks/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaWduZWRUYXNrc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Repositories/TaskManager/TaskManager/Views/AssignedTasks/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaWduZWRUYXNrc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Repositories/TaskManager/TaskManager/Views/AssignedTasks/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaWduZWRUYXNrc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Repositories/TaskManager/TaskManager/Views/AssignedTasks/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaWduZWRUYXNrc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Repositories/TaskManager/TaskManager/Views/Employees/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
