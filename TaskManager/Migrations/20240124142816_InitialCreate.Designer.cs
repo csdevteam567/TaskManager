@@ -12,7 +12,7 @@ using TaskManager.Models;
 namespace TaskManager.Migrations
 {
     [DbContext(typeof(TasksDbContext))]
-    [Migration("20240124141037_InitialCreate")]
+    [Migration("20240124142816_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -77,6 +77,9 @@ namespace TaskManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -89,9 +92,6 @@ namespace TaskManager.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.HasKey("id");
 

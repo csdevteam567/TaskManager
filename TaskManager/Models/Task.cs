@@ -11,7 +11,7 @@ namespace TaskManager.Models
         public string? Name {  get; set; }
 
         [Required]
-        public bool Status { get; set; }
+        public bool CompletionStatus { get; set; }
 
         public DateTime Created { get; set; } = DateTime.Now;
 

@@ -74,6 +74,9 @@ namespace TaskManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -86,9 +89,6 @@ namespace TaskManager.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.HasKey("id");
 
