@@ -5,9 +5,14 @@ namespace TaskManager.Models
     public class TasksDbContext : DbContext
     {
         public TasksDbContext(DbContextOptions<TasksDbContext> dbContextOptions)
-            :base(dbContextOptions)
+            : base(dbContextOptions)
         {
         }
+
+        //public TasksDbContext()
+        //{
+
+        //}
 
         public DbSet<Task> Tasks { get; set; }
 

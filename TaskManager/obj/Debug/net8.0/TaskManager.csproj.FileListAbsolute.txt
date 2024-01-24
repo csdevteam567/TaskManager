@@ -259,3 +259,4 @@ C:\Repositories\TaskManager\TaskManager\bin\Debug\net8.0\runtimes\win\lib\net7.0
 C:\Repositories\TaskManager\TaskManager\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Repositories\TaskManager\TaskManager\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Repositories\TaskManager\TaskManager\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Repositories\TaskManager\TaskManager\obj\Debug\net8.0\TaskManager.sourcelink.json

@@ -8,12 +8,16 @@ namespace TaskManager.Models
         public int id { get; set; }
 
         [Required]
-        public string? name { get; set; }
+        public string? Name {  get; set; }
 
         [Required]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
-        public string? description { get; set; } = null;
+        public DateTime Created { get; set; } = DateTime.Now;
+
+        public DateTime Deadline { get; set; }
+
+        public string? Description { get; set; } = null;
 
         public ICollection<AssignedTask>? assignedTasks { get; set; } = null;
 

@@ -7,14 +7,11 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Assign task</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeRole)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.employee)
             </th>
@@ -28,13 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeRole)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.employee.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.task.name)
+                @Html.DisplayFor(modelItem => item.task.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

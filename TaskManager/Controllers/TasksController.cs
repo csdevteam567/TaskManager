@@ -53,7 +53,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,status,description")] TaskManager.Models.Task task)
+        public async Task<IActionResult> Create([Bind("id,Name,Status,Created,Deadline,Description")] TaskManager.Models.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name,status,description")] TaskManager.Models.Task task)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Name,Status,Created,Deadline,Description")] TaskManager.Models.Task task)
         {
             if (id != task.id)
             {

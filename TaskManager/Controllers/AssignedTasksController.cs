@@ -49,7 +49,7 @@ namespace TaskManager.Controllers
         public IActionResult Create()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email");
-            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "name");
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,EmployeeRole,EmployeeId,TaskId")] AssignedTask assignedTask)
+        public async Task<IActionResult> Create([Bind("id,EmployeeId,TaskId")] AssignedTask assignedTask)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace TaskManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", assignedTask.EmployeeId);
-            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "name", assignedTask.TaskId);
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "Name", assignedTask.TaskId);
             return View(assignedTask);
         }
 
@@ -85,7 +85,7 @@ namespace TaskManager.Controllers
                 return NotFound();
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", assignedTask.EmployeeId);
-            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "name", assignedTask.TaskId);
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "Name", assignedTask.TaskId);
             return View(assignedTask);
         }
 
@@ -94,7 +94,7 @@ namespace TaskManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,EmployeeRole,EmployeeId,TaskId")] AssignedTask assignedTask)
+        public async Task<IActionResult> Edit(int id, [Bind("id,EmployeeId,TaskId")] AssignedTask assignedTask)
         {
             if (id != assignedTask.id)
             {
@@ -122,7 +122,7 @@ namespace TaskManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "id", "Email", assignedTask.EmployeeId);
-            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "name", assignedTask.TaskId);
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "id", "Name", assignedTask.TaskId);
             return View(assignedTask);
         }
 

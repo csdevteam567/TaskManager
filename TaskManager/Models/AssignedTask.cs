@@ -7,8 +7,6 @@ namespace TaskManager.Models
         [Key]
         public int id { get; set; }
 
-        public int EmployeeRole { get; set; }
-
         public int EmployeeId { get; set; }
 
         public int TaskId { get; set; }
