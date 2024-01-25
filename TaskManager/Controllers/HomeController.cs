@@ -17,12 +17,6 @@ namespace TaskManager.Controllers
 
         public IActionResult Index()
         {
-            //using (TasksDbContext db = new TasksDbContext())
-            //{
-            //    var query = (from t in db.Tasks
-            //                select t).ToList();
-
-            //}
             return View();
         }
 

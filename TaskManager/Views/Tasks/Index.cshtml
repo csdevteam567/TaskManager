@@ -9,6 +9,37 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index">
+<table class="table">
+    <tr>
+        <th>
+            <div class="form-sort">
+                <label class="control-label">Sort by</label>
+                    <select name="sortOption" class="form-control">
+                    <option value="0">Not selected</option>
+                    <option value="1">Created</option>
+                    <option value="2">Deadline</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="form-sort">
+                <label class="control-label">Sort Order</label>
+                    <select name="sortOrderOption" class="form-control">
+                    <option value="0">Ascending</option>
+                    <option value="1">Descending</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <br/>
+            <div class="form-sort">
+                <input type="submit" value="Sort" class="btn btn-primary" />
+            </div>
+        </th>
+    </tr>
+</table>
+</form>
 <table class="table">
     <thead>
         <tr>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using TaskManager.Models;
 
 namespace TaskManager.Controllers
@@ -18,10 +19,43 @@ namespace TaskManager.Controllers
             _context = context;
         }
 
+        //// GET: Tasks
+        //public async Task<IActionResult> Index()
+        //{
+        //    var tasksDbContext = _context.Tasks.Include(t => t.Employee);
+        //    return View(await tasksDbContext.ToListAsync());
+        //}
+
         // GET: Tasks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int sortOption, int sortOrderOption)
         {
-            var tasksDbContext = _context.Tasks.Include(t => t.Employee);
+            IQueryable<TaskManager.Models.Task> tasksDbContext = _context.Tasks.Include(t => t.Employee);
+            if (sortOption > 0)
+            {
+                if (sortOrderOption == 0)
+                {
+                    if (sortOption == 1)
+                    {
+                        tasksDbContext = tasksDbContext.OrderBy(t => t.Deadline);
+                    }
+                    else
+                    {
+                        tasksDbContext = tasksDbContext.OrderBy(t => t.Created);
+                    }
+                }
+                else
+                {
+                    if (sortOption == 2)
+                    {
+                        tasksDbContext = tasksDbContext.OrderByDescending(t => t.Deadline);
+                    }
+                    else
+                    {
+                        tasksDbContext = tasksDbContext.OrderByDescending(t => t.Created);
+                    }
+                }
+            }
+
             return View(await tasksDbContext.ToListAsync());
         }
 
