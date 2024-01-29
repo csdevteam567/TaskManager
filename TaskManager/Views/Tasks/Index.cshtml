@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TaskManager.Models.Task>
+﻿<div id="test">
+@model IEnumerable<TaskManager.Models.Task>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,7 +16,7 @@
         <th>
             <div class="form-sort">
                 <label class="control-label">Sort by</label>
-                    <select name="sortOption" class="form-control">
+                    <select name="sortOption" id="sort_option" class="form-control">
                     <option value="0">Not selected</option>
                     <option value="1">Created</option>
                     <option value="2">Deadline</option>
@@ -25,7 +26,7 @@
         <th>
             <div class="form-sort">
                 <label class="control-label">Sort Order</label>
-                    <select name="sortOrderOption" class="form-control">
+                    <select name="sortOrderOption" id="sort_order_option" class="form-control">
                     <option value="0">Ascending</option>
                     <option value="1">Descending</option>
                 </select>
@@ -34,13 +35,13 @@
         <th>
             <br/>
             <div class="form-sort">
-                <input type="submit" value="Sort" class="btn btn-primary" />
+                    <input value="Sort" type="button" onclick="filterOnClick()" class="btn btn-primary" />
             </div>
         </th>
     </tr>
 </table>
 </form>
-<table class="table">
+<table class="table" id="data_table">
     <thead>
         <tr>
             <th>
@@ -87,10 +88,74 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+</div>
+
+<script>
+    function filterOnClick() {
+        var sortOptionvalue = document.getElementById("sort_option").value;
+        var sortOrderOptionvalue = document.getElementById("sort_order_option").value;
+        $.ajax(
+            {
+                url: '/Tasks',
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                data: JSON.stringify({
+                    sortOption: sortOptionvalue,
+                    sortOrderOption: sortOrderOptionvalue
+                })
+            }
+        ).done(function (data) {
+            document.getElementById("data_table").innerHTML = "";
+            var resultHtml = "<thead><tr>";
+            
+            for (var prop in data[0]) {
+                if (prop.toLowerCase().includes("id")) continue;
+                resultHtml = resultHtml + ("<th>" + prop + "</th>");
+            };
+            resultHtml = resultHtml + "<th> </th>";
+
+            resultHtml = resultHtml + "</tr></thead>";
+
+            resultHtml = resultHtml + "<tbody>";
+            for (var row in data) {
+                resultHtml = resultHtml + "<tr>";
+
+                resultHtml = resultHtml + ("<td>" + data[row]["Name"] + "</td>");
+                if (data[row]["CompletionStatus"])
+                    resultHtml = resultHtml + ("<td>" + '<input class="check-box" disabled type="checkbox" checked>' + "</td>");
+                else
+                    resultHtml = resultHtml + ("<td>" + '<input class="check-box" disabled type="checkbox">' + "</td>");
+                resultHtml = resultHtml + ("<td>" + data[row]["Created"] + "</td>");
+                resultHtml = resultHtml + ("<td>" + data[row]["Deadline"] + "</td>");
+                resultHtml = resultHtml + ("<td>" + data[row]["Description"] + "</td>");
+                resultHtml = resultHtml + ("<td>" + data[row]["Employee"]["Email"] + "</td>");
+
+                resultHtml = resultHtml + '<td>' +
+                    '<a href="/Tasks/Edit/' + data[row]["id"] + '">Edit</a> | ' +
+                    '<a href="/Tasks/Delete/' + data[row]["id"] + '">Delete</a>' +
+                    '</td>';
+
+                resultHtml = resultHtml + "</tr>";
+            }
+            
+
+
+            resultHtml = resultHtml + "</tbody>";
+            
+            document.getElementById("data_table").innerHTML = resultHtml;
+
+        }).fail(function (err) {
+
+            alert(err.responseText);
+        });
+    }
+</script>

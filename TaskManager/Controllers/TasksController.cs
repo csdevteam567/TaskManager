@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using TaskManager.Models;
+using Newtonsoft.Json;
 
 namespace TaskManager.Controllers
 {
@@ -20,21 +21,28 @@ namespace TaskManager.Controllers
         }
 
         //// GET: Tasks
-        //public async Task<IActionResult> Index()
-        //{
-        //    var tasksDbContext = _context.Tasks.Include(t => t.Employee);
-        //    return View(await tasksDbContext.ToListAsync());
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var tasksDbContext = _context.Tasks.Include(t => t.Employee);
+            return View(await tasksDbContext.ToListAsync());
+        }
 
         // GET: Tasks
-        public async Task<IActionResult> Index(int sortOption, int sortOrderOption)
+        [HttpPost]
+        public async Task<string> Index([FromBody] Dictionary<string, int> parameters)
         {
             IQueryable<TaskManager.Models.Task> tasksDbContext = _context.Tasks.Include(t => t.Employee);
-            if (sortOption > 0)
+            //IQueryable<TaskManager.Models.Task> tasksDbContext = from task in _context.Tasks
+            //                                                     join employee in _context.Employees on task.EmployeeId equals employee.id
+            //                                                     select new { id = task.id, Name = task.Name, CompletionStatus = task.CompletionStatus,
+            //                                                     Created = task.Created, Deadline = task.Deadline, Description = task.Description, 
+            //                                                     EmployeeId = task.EmployeeId, Employee = employee};
+
+            if (parameters["sortOption"] > 0)
             {
-                if (sortOrderOption == 0)
+                if (parameters["sortOrderOption"] == 0)
                 {
-                    if (sortOption == 1)
+                    if (parameters["sortOption"] == 1)
                     {
                         tasksDbContext = tasksDbContext.OrderBy(t => t.Deadline);
                     }
@@ -45,7 +53,7 @@ namespace TaskManager.Controllers
                 }
                 else
                 {
-                    if (sortOption == 2)
+                    if (parameters["sortOption"] == 2)
                     {
                         tasksDbContext = tasksDbContext.OrderByDescending(t => t.Deadline);
                     }
@@ -55,8 +63,11 @@ namespace TaskManager.Controllers
                     }
                 }
             }
+            var resultData = await tasksDbContext.ToListAsync();
 
-            return View(await tasksDbContext.ToListAsync());
+            string result = JsonConvert.SerializeObject(resultData, Formatting.Indented);
+            
+            return result;
         }
 
         // GET: Tasks/Details/5
